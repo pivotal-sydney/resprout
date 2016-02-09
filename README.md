@@ -35,20 +35,18 @@ This is a [Spring Boot](http://projects.spring.io/spring-boot/) project.
 | Not Done | [sprout-mysql](https://github.com/pivotal-sprout/sprout-mysql) | Cookbook for managing mysql on an OSX workstation |
 | Not Done | [sprout-rubymine](https://github.com/pivotal-sprout/sprout-rubymine) | Recipes to manage Rubymine on OSX |
 | Not Done | [sprout-keycastr](https://github.com/pivotal-sprout/sprout-keycastr) | Installs and configures KeyCastr |
-| Not Done | [sprout-attic](https://github.com/pivotal-sprout/sprout-attic) | Legacy cookbooks that are no longer support but available for reference |
 | Not Done | [sprout-git](https://github.com/pivotal-sprout/sprout-git) | Recipes to manage git on OS X |
 | Not Done | [sprout-chruby](https://github.com/pivotal-sprout/sprout-chruby) | Manage chruby on OS X |
 | Not Done | [sprout-homebrew](https://github.com/pivotal-sprout/sprout-homebrew) | contains meta recipe to install homebrew casks and formulae using attributes defined in soloistrc only |
 | Not Done | [sprout-rbenv](https://github.com/pivotal-sprout/sprout-rbenv) | Recipes to manage rbenv on OS X |
 | Not Done | [sprout-redis](https://github.com/pivotal-sprout/sprout-redis) | Cookbok for managing redis on an OS X workstation |
 | Not Done | [sprout-terminal](https://github.com/pivotal-sprout/sprout-terminal) | A Chef Cookbook of Recipes to Configure the Terminal Application |
-https://github.com/pivotal-sprout/sprout-postgresql : pivotal-sprout/sprout-postgresql
+| Not Done | [sprout-postgresql | https://github.com/pivotal-sprout/sprout-postgresql : pivotal-sprout/sprout-postgresql |
 | Not Done | [sprout-ssh](https://github.com/pivotal-sprout/sprout-ssh) | Cookbook to configure ssh on an OS X developer workstation |
 | Not Done | [osx](https://github.com/pivotal-sprout/osx) | Useful LWRPs for managing OSX settings |
 | Not Done | [sprout-vim](https://github.com/pivotal-sprout/sprout-vim) | Cookbok for managing vim on an OS X workstation |
 | Not Done | [sprout-exemplar](https://github.com/pivotal-sprout/sprout-exemplar) | Template repo for creating standalone cookbooks |
 | Not Done | [sprout-orchard](https://github.com/pivotal-sprout/sprout-orchard) | Sprout Orchard (where you grow trees) is a set of programs which support the taking of snapshots of disks of successfully-run chef scripts |
-| Not Done | [sprout-incubator](https://github.com/pivotal-sprout/sprout-incubator) | Submit cookbooks that you&#39;d like to see added to sprout here. Please use sprout-exemplar as your starting point. |
 
 ## Related
 
