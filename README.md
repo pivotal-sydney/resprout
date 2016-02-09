@@ -41,7 +41,7 @@ This is a [Spring Boot](http://projects.spring.io/spring-boot/) project.
 | Not Done | [sprout-rbenv](https://github.com/pivotal-sprout/sprout-rbenv) | Recipes to manage rbenv on OS X |
 | Not Done | [sprout-redis](https://github.com/pivotal-sprout/sprout-redis) | Cookbok for managing redis on an OS X workstation |
 | Not Done | [sprout-terminal](https://github.com/pivotal-sprout/sprout-terminal) | A Chef Cookbook of Recipes to Configure the Terminal Application |
-| Not Done | [sprout-postgresql | https://github.com/pivotal-sprout/sprout-postgresql : pivotal-sprout/sprout-postgresql |
+| Not Done | [sprout-postgresql](https://github.com/pivotal-sprout/sprout-postgresql) | pivotal-sprout/sprout-postgresql |
 | Not Done | [sprout-ssh](https://github.com/pivotal-sprout/sprout-ssh) | Cookbook to configure ssh on an OS X developer workstation |
 | Not Done | [osx](https://github.com/pivotal-sprout/osx) | Useful LWRPs for managing OSX settings |
 | Not Done | [sprout-vim](https://github.com/pivotal-sprout/sprout-vim) | Cookbok for managing vim on an OS X workstation |
