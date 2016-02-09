@@ -4,7 +4,7 @@ Provisioning workstations can be a pain, this HTTP API will expose metadata for 
 
 It will hopefully support all the sources listed below.
 
-## Dependencies
+This is a [Spring Boot](http://projects.spring.io/spring-boot/) project.
 
 ## Usage
   * Build the JAR using gradle
