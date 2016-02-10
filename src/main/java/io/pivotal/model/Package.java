@@ -13,12 +13,25 @@ public abstract class Package {
     private long id;
     private String description;
 
+    public Package() {
+
+    }
+
+    public Package(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescription(String description) {

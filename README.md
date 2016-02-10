@@ -1,4 +1,4 @@
-# Resprout
+ Resprout
 
 Provisioning workstations can be a pain, this HTTP API will expose metadata for the various recipes and packages that can be used to provision a machine so that a `soloistrc` file can be generated through user selection.
 
@@ -7,9 +7,34 @@ It will hopefully support all the sources listed below.
 This is a [Spring Boot](http://projects.spring.io/spring-boot/) project.
 
 ## Usage
-  * Build the JAR using gradle
-  * Deploy somewhere
-  * Build your own client - and interact with it.
+
+### Build the JAR using gradle
+
+```bash
+./gradlew build
+```
+
+### Deployment
+Be sure to activate the `production` profile for application instances that run in production. If you would like to schedule a task to update metdata periodically, then activate the profile `production-worker` as well. These profiles will allow you to deploy a single application for both tasks and the API, or API applications and worker applications separately.
+
+You may configure the cron expression controlling the task using the environment variable `RESPROUT_REPOSITORIES_CRON` or its equiavalent application properties key (bean).
+
+#### One Application
+
+```bash
+SPRING_PROFILES_ACTIVE=production,production-worker ./gradlew bootRun
+```
+
+#### API Application, Worker Application
+
+```bash
+SPRING_PROFILES_ACTIVE=production ./gradlew bootRun                     # API Only - route to this instance
+SPRING_PROFILES_ACTIVE=production,production-worker ./gradlew bootRun   # Worker   - do not route to this instance.
+```
+
+### Clients
+
+Build your own client - and interact with it.
   
 ## Sources
 
