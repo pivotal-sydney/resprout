@@ -4,20 +4,18 @@ import io.pivotal.model.HomebrewPackage;
 import io.pivotal.model.Package;
 import io.pivotal.persistence.PackageRepository;
 import io.pivotal.service.HomebrewPackageService;
+import io.pivotal.service.PackageService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InOrder;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.LinkedList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PackageTaskTest {
@@ -26,14 +24,18 @@ public class PackageTaskTest {
     private HomebrewPackageService homebrewPackageService;
     @Mock
     private PackageRepository packageRepository;
-    @InjectMocks
+
     private PackageTask packageTask;
 
-    private List<Package> homebrewPackages = new LinkedList<>();
+    private List<PackageService> services;
+    private List<Package> homebrewPackages;
 
     @Before
     public void before() throws Exception {
-        homebrewPackages.add(new HomebrewPackage("wget", "desc"));
+        services = Arrays.asList(homebrewPackageService);
+        packageTask = new PackageTask(services, packageRepository);
+
+        homebrewPackages = Arrays.asList(new HomebrewPackage("wget", "desc"));
         when(homebrewPackageService.find()).thenReturn(homebrewPackages);
     }
 
