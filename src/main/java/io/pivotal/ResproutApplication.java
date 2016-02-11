@@ -14,8 +14,7 @@ public class ResproutApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ResproutApplication.class, args);
-    } {}
-
+    }
 
     @Bean
     public FileSystem providesFileSystem() {

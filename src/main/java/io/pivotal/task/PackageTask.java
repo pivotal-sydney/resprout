@@ -12,24 +12,24 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Component
 public class PackageTask {
+
     private static final Logger logger = LoggerFactory.getLogger(PackageTask.class);
 
-    @Autowired
-    private HomebrewPackageService homebrewPackageService;
+    private final HomebrewPackageService homebrewPackageService;
+    private final PackageRepository packageRepository;
 
     @Autowired
-    private PackageRepository packageRepository;
+    public PackageTask(HomebrewPackageService homebrewPackageService, PackageRepository packageRepository) {
+        this.homebrewPackageService = homebrewPackageService;
+        this.packageRepository = packageRepository;
+    }
 
     @Profile("production-worker")
     @Scheduled(cron = "${resprout.repositories.cron}")
@@ -41,12 +41,12 @@ public class PackageTask {
 
         List<Package> packages = new ArrayList<>();
 
-        for (PackageService service :
-                services) {
+        for (PackageService service : services) {
             service.update();
             packages.addAll(service.find());
         }
 
+        packageRepository.deleteAll();
         packageRepository.save(packages);
 
         logger.info("{} packages loaded", packages.size());

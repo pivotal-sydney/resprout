@@ -7,14 +7,14 @@ import javax.persistence.*;
 @Inheritance(strategy =  InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "package_type")
 public abstract class Package {
-    protected String name;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private String name;
     private String description;
 
     public Package() {
-
     }
 
     public Package(String name, String description) {
