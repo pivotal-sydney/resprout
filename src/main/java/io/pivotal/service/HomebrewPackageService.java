@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.*;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 public class HomebrewPackageService implements PackageService {
 
     private static final Logger logger = LoggerFactory.getLogger(HomebrewPackageService.class);
+    private static final Pattern DESCRIPTION_PATTERN = Pattern.compile("^\\s*desc\\s+\"(?<description>.*)\"");
 
     static final String REPOSITORY_NAME = "homebrew";
 
@@ -39,16 +42,12 @@ public class HomebrewPackageService implements PackageService {
         this(fileSystem, gitService, Paths.get(System.getProperty("java.io.tmpdir"), localPath), new URI(remotePath));
     }
 
-    public HomebrewPackageService(FileSystem fileSystem, GitService gitService, Path localPath, URI remotePath) throws IOException {
+    HomebrewPackageService(FileSystem fileSystem, GitService gitService, Path localPath, URI remotePath) throws IOException {
         this.fileSystem = fileSystem;
         this.gitService = gitService;
         this.localPath = localPath.resolve(REPOSITORY_NAME);
         this.remotePath = remotePath;
         Files.createDirectories(localPath);
-    }
-
-    public HomebrewPackageService(FileSystem fileSystem, GitService gitService) throws IOException {
-        this(fileSystem, gitService, Paths.get(System.getProperty("java.io.tmpdir"), "io.pivotal.resprout", "package_services", REPOSITORY_NAME), new File("/usr/local/.git").toURI());
     }
 
     @Override
@@ -81,11 +80,10 @@ public class HomebrewPackageService implements PackageService {
     }
 
     private String getDescription(Path path) throws IOException {
-        Pattern compile = Pattern.compile("^\\s*desc\\s+\"(?<description>.*)\"");
         List<String> lines = Files.readAllLines(path);
 
         Optional<Matcher> matcher = lines.stream()
-                .map(l -> compile.matcher(l))
+                .map(DESCRIPTION_PATTERN::matcher)
                 .filter(Matcher::matches)
                 .findAny();
 
