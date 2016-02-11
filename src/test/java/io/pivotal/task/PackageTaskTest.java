@@ -40,7 +40,7 @@ public class PackageTaskTest {
     @Test
     public void shouldSaveAllPackages() throws Exception {
 
-        packageTask.scheduledCreate();
+        packageTask.execute();
 
         verify(packageRepository).save(homebrewPackages);
     }
@@ -48,7 +48,7 @@ public class PackageTaskTest {
     @Test
     public void shouldUpdateServiceBeforeCallingFind() throws Exception {
 
-        packageTask.scheduledCreate();
+        packageTask.execute();
 
         InOrder inOrder = inOrder(homebrewPackageService);
         inOrder.verify(homebrewPackageService).update();
@@ -58,7 +58,7 @@ public class PackageTaskTest {
     @Test
     public void shouldDeleteAllPackagesBeforeSaving() throws Exception {
 
-        packageTask.scheduledCreate();
+        packageTask.execute();
 
         InOrder inOrder = inOrder(packageRepository);
         inOrder.verify(packageRepository).deleteAll();

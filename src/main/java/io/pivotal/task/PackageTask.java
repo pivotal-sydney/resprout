@@ -8,6 +8,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -31,13 +32,9 @@ public class PackageTask {
         this.packageRepository = packageRepository;
     }
 
-    @Profile("production-worker")
     @Scheduled(cron = "${resprout.repositories.cron}")
-    public void scheduledCreate() throws InterruptedException, GitAPIException, IOException {
-        create(Arrays.asList(homebrewPackageService), packageRepository);
-    }
-
-    public static void create(List<? extends PackageService> services, PackageRepository packageRepository) throws InterruptedException, IOException, GitAPIException {
+    public void execute() throws InterruptedException, GitAPIException, IOException {
+        List<HomebrewPackageService> services = Arrays.asList(homebrewPackageService);
 
         List<Package> packages = new ArrayList<>();
 

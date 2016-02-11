@@ -1,9 +1,6 @@
 package io.pivotal.web;
 
 
-import io.pivotal.persistence.PackageRepository;
-import io.pivotal.service.HomebrewPackageService;
-import io.pivotal.service.PackageService;
 import io.pivotal.task.PackageTask;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +10,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 public class TaskController {
 
-    @Autowired
-    private HomebrewPackageService homebrewPackageService;
+    private final PackageTask packageTask;
 
     @Autowired
-    private PackageRepository packageRepository;
+    public TaskController(PackageTask packageTask) {
+        this.packageTask = packageTask;
+    }
 
     @RequestMapping("/find_packages")
     public ResponseEntity<?> findPackages() throws InterruptedException, IOException, GitAPIException {
-        List<? extends PackageService> packageServices = Arrays.asList(homebrewPackageService);
-        PackageTask.create(packageServices, packageRepository);
+        packageTask.execute();
         return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
     }
 }
