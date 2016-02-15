@@ -14,6 +14,7 @@ var paths = {
   scripts: ['js/**/*.js'],
   images: 'img/**/*',
   css: 'css/**/*.scss',
+  index: 'index.html'
 };
 
 // Not all tasks need to use streams
@@ -78,6 +79,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.images, ['images']);
   gulp.watch(paths.css, ['sass']);
+  gulp.watch(paths.index, ['copy-index']);
 });
 
 gulp.task('copy-index', function() {
@@ -87,7 +89,7 @@ gulp.task('copy-index', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('live-reload', ['watch', 'scripts', 'images', 'vendor', 'sass']);
+gulp.task('live-reload', ['watch', 'scripts', 'images', 'vendor', 'sass', 'copy-index']);
 
 gulp.task('webserver', ['copy-index', 'live-reload'], function() {
   gulp.src('build')
@@ -97,5 +99,3 @@ gulp.task('webserver', ['copy-index', 'live-reload'], function() {
 });
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', ['webserver']);
-
-
