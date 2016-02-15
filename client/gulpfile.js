@@ -21,7 +21,8 @@ gulp.task('clean', function() {
   return del(['build']);
 });
 
-gulp.task('scripts', ['clean'], function() {
+gulp.task('scripts', function() {
+  del.sync(['build/js/*', '!build/js/vendor.js']);
   // Minify and copy all JavaScript (except vendor scripts)
   // with sourcemaps all the way down
   return gulp.src(paths.scripts)
@@ -35,7 +36,9 @@ gulp.task('scripts', ['clean'], function() {
 
 gulp.task('vendor', ['vendor-js', 'vendor-css']);
 
-gulp.task('vendor-js', ['clean'], function() {
+gulp.task('vendor-js', function() {
+  del.sync(['build/js/vendor.js']);
+
   var filter = gulpFilter(['**/*.min.js']);
 
   return gulp.src(gnf(), {base:'./'})
@@ -44,13 +47,17 @@ gulp.task('vendor-js', ['clean'], function() {
     .pipe(gulp.dest('build/js'))
 })
 
-gulp.task('vendor-css', ['clean'], function() {
+gulp.task('vendor-css', function() {
+  del.sync(['build/css/components.css']);
+
   return drFrankenstyle()
     .pipe(gulp.dest('build/css'));
 });
 
 // Copy all static images
-gulp.task('images', ['clean'], function() {
+gulp.task('images', function() {
+  del.sync(['build/img/*']);
+
   return gulp.src(paths.images)
     // Pass in options to the task
     .pipe(imagemin({optimizationLevel: 5}))
@@ -63,8 +70,10 @@ gulp.task('watch', function() {
   gulp.watch(paths.images, ['images']);
 });
 
-gulp.task('copy-index', ['clean'], function() {
-  return gulp.src('index.html')
+gulp.task('copy-index', function() {
+  del.sync(['build/index.html']);
+
+  return gulp.src(paths.index)
     .pipe(gulp.dest('build'));
 });
 
