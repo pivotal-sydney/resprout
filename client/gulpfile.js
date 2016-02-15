@@ -8,10 +8,12 @@ var del = require('del');
 var gulpFilter = require('gulp-filter');
 var drFrankenstyle = require('dr-frankenstyle');
 var webserver = require('gulp-webserver');
+var sass = require('gulp-sass');
 
 var paths = {
   scripts: ['js/**/*.js'],
-  images: 'img/**/*'
+  images: 'img/**/*',
+  css: 'css/**/*.scss',
 };
 
 // Not all tasks need to use streams
@@ -33,6 +35,13 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('build/js'));
 });
 
+gulp.task('sass', function () {
+  del.sync(['build/css/*', '!build/css/components.css']);
+
+  gulp.src(paths.css)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./build/css'));
+});
 
 gulp.task('vendor', ['vendor-js', 'vendor-css']);
 
@@ -68,6 +77,7 @@ gulp.task('images', function() {
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['scripts']);
   gulp.watch(paths.images, ['images']);
+  gulp.watch(paths.css, ['sass']);
 });
 
 gulp.task('copy-index', function() {
@@ -77,7 +87,7 @@ gulp.task('copy-index', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('live-reload', ['watch', 'scripts', 'images', 'vendor']);
+gulp.task('live-reload', ['watch', 'scripts', 'images', 'vendor', 'sass']);
 
 gulp.task('webserver', ['copy-index', 'live-reload'], function() {
   gulp.src('build')
