@@ -9,6 +9,7 @@ var gulpFilter = require('gulp-filter');
 var drFrankenstyle = require('dr-frankenstyle');
 var webserver = require('gulp-webserver');
 var sass = require('gulp-sass');
+var notify = require('gulp-notify');
 
 var paths = {
   scripts: ['js/**/*.js'],
@@ -33,7 +34,8 @@ gulp.task('scripts', function() {
       .pipe(uglify())
       .pipe(concat('all.min.js'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest('build/js'))
+    .pipe(notify({message: "built: scripts", onLast: true}));
 });
 
 gulp.task('sass', function () {
@@ -41,7 +43,8 @@ gulp.task('sass', function () {
 
   gulp.src(paths.css)
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./build/css'));
+    .pipe(gulp.dest('./build/css'))
+    .pipe(notify({message: "built: sass", onLast: true}));
 });
 
 gulp.task('vendor', ['vendor-js', 'vendor-css']);
@@ -55,13 +58,15 @@ gulp.task('vendor-js', function() {
     .pipe(filter)
     .pipe(concat('vendor.js'))
     .pipe(gulp.dest('build/js'))
+    .pipe(notify({message: "built: vendor-js", onLast: true}));
 })
 
 gulp.task('vendor-css', function() {
   del.sync(['build/css/components.css']);
 
   return drFrankenstyle()
-    .pipe(gulp.dest('build/css'));
+    .pipe(gulp.dest('build/css'))
+    .pipe(notify({message: "built: vendor-css", onLast: true}));
 });
 
 // Copy all static images
@@ -71,7 +76,8 @@ gulp.task('images', function() {
   return gulp.src(paths.images)
     // Pass in options to the task
     .pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest('build/img'));
+    .pipe(gulp.dest('build/img'))
+    .pipe(notify({message: "built: images", onLast: true}));
 });
 
 // Rerun the task when a file changes
@@ -86,7 +92,8 @@ gulp.task('copy-index', function() {
   del.sync(['build/index.html']);
 
   return gulp.src(paths.index)
-    .pipe(gulp.dest('build'));
+    .pipe(gulp.dest('build'))
+    .pipe(notify({message: "built: copy-index", onLast: true}));
 });
 
 gulp.task('live-reload', ['watch', 'scripts', 'images', 'vendor', 'sass', 'copy-index']);
