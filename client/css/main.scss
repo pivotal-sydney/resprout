@@ -47,3 +47,17 @@ html, body {
   -webkit-justify-content : center;
           justify-content : center;
 }
+
+.search {
+  width: 60em;
+}
+
+.search-table {
+  width: 100%;
+  border: 0;
+  table-layout: fixed !important;
+}
+
+.search-box {
+  width: 100%;
+}
