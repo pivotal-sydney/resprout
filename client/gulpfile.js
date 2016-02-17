@@ -10,6 +10,7 @@ var drFrankenstyle = require('dr-frankenstyle');
 var webserver = require('gulp-webserver');
 var sass = require('gulp-sass');
 var notify = require('gulp-notify');
+var jshint = require('gulp-jshint');
 
 var paths = {
   scripts: ['js/**/*.js'],
@@ -25,7 +26,24 @@ gulp.task('clean', function() {
   return del(['build']);
 });
 
-gulp.task('scripts', function() {
+gulp.task('lint', function() {
+  gulp.src(paths.scripts)
+    .pipe(jshint())
+    .pipe(notify(function (file) {
+      if (file.jshint.success) {
+        return false;
+      }
+
+      var errors = file.jshint.results.map(function (data) {
+        if (data.error) {
+          return "(" + data.error.line + ':' + data.error.character + ') ' + data.error.reason;
+        }
+      }).join("\n");
+      return file.relative + " (" + file.jshint.results.length + " errors)\n" + errors;
+    }));
+});
+
+gulp.task('scripts', ['lint'], function() {
   del.sync(['build/js/*', '!build/js/vendor.js']);
   // Minify and copy all JavaScript (except vendor scripts)
   // with sourcemaps all the way down
