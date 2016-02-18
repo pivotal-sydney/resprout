@@ -26,7 +26,7 @@ $(function () {
     $('.search-box').select2({
         width: 'resolve',
         ajax: {
-            url: "http://localhost:8080/api/packages/search/findByNameContainingIgnoreCase",
+          url: "http://resprout.cfapps.io/api/packages/search/findByNameContainingIgnoreCase",
             dataType: 'json',
             delay: 250,
             data: function (params) {
