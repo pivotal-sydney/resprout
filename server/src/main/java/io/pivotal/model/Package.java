@@ -1,5 +1,6 @@
 package io.pivotal.model;
 
+import org.springframework.data.annotation.ReadOnlyProperty;
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +17,11 @@ public abstract class Package {
     public Package() {
 
     }
+
+    @ReadOnlyProperty
+    @Column(name = "package_type", insertable=false, updatable=false)
+    private String packageType;
+
 
     public Package(String name, String description) {
         this.name = name;
@@ -36,5 +42,9 @@ public abstract class Package {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPackageType() {
+        return packageType;
     }
 }
