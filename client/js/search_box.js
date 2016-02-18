@@ -23,7 +23,6 @@ $(function () {
         return package.name;
     };
 
-            //url: "http://resprout.cfapps.io/api/packages/search/findByNameContainingIgnoreCase",
     $('.search-box').select2({
         width: 'resolve',
         ajax: {
