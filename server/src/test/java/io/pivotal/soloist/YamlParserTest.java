@@ -10,7 +10,7 @@ import org.yaml.snakeyaml.Yaml;
 
 public class YamlParserTest {
 
-    private String SOLOIST_YAML =
+    private static final String SOLOIST_YAML =
             "recipes:\n" +
             "\n" +
             "# base (required by sprout)\n" +
@@ -122,7 +122,9 @@ public class YamlParserTest {
         Soloist soloist = yaml.loadAs(SOLOIST_YAML, Soloist.class);
 
         assertThat(soloist.getNode_attributes().getSprout().getHomebrew().getFormulas()).hasSize(14);
+        assertThat(soloist.getNode_attributes().getSprout().getHomebrew().getFormulas()).contains("wget");
         assertThat(soloist.getNode_attributes().getSprout().getHomebrew().getCasks()).hasSize(15);
+        assertThat(soloist.getNode_attributes().getSprout().getHomebrew().getCasks()).contains("slack");
     }
 
     @Test
@@ -134,7 +136,7 @@ public class YamlParserTest {
         String yamlDump = yaml.dump(yaml.loadAs(SOLOIST_YAML, Soloist.class));
 
         System.out.println(yamlDump);
-        assertThat(yamlDump).contains("ctags-exuberant");
+        assertThat(yamlDump).contains("wget", "slack");
     }
 
 }
