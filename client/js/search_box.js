@@ -44,7 +44,7 @@ $(function () {
                 params.page = params.page || 1;
 
                 newResults = $.map(data._embedded.homebrew_packages, function(value) {
-                    value.id = value.package_type + "." + value.name;
+                    value.id = value._links.self.href;
                     return value;
                 });
 
