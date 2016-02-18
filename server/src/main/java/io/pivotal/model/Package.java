@@ -8,20 +8,18 @@ import javax.persistence.*;
 @Inheritance(strategy =  InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "package_type")
 public abstract class Package {
-    protected String name;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private String name;
     private String description;
-
-    public Package() {
-
-    }
-
     @ReadOnlyProperty
     @Column(name = "package_type", insertable=false, updatable=false)
     private String packageType;
 
+    public Package() {
+    }
 
     public Package(String name, String description) {
         this.name = name;
