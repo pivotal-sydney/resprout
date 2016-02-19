@@ -114,7 +114,8 @@ gulp.task('copy-index', function() {
     .pipe(notify({message: "built: copy-index", onLast: true}));
 });
 
-gulp.task('live-reload', ['watch', 'scripts', 'images', 'vendor', 'sass', 'copy-index']);
+gulp.task('live-reload', ['watch', 'build']);
+gulp.task('build', ['scripts', 'images', 'vendor', 'sass', 'copy-index']);
 
 gulp.task('webserver', ['copy-index', 'live-reload'], function() {
   gulp.src('build')
