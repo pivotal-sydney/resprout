@@ -2,6 +2,7 @@ package io.pivotal.web;
 
 
 import io.pivotal.persistence.PackageRepository;
+import io.pivotal.service.HomebrewCaskPackageService;
 import io.pivotal.service.HomebrewPackageService;
 import io.pivotal.service.PackageService;
 import io.pivotal.task.PackageTask;
@@ -24,11 +25,14 @@ public class TaskController {
     private HomebrewPackageService homebrewPackageService;
 
     @Autowired
+    private HomebrewCaskPackageService homebrewCaskPackageService;
+
+    @Autowired
     private PackageRepository packageRepository;
 
     @RequestMapping("/find_packages")
     public ResponseEntity<?> findPackages() throws InterruptedException, IOException, GitAPIException {
-        List<? extends PackageService> packageServices = Arrays.asList(homebrewPackageService);
+        List<? extends PackageService> packageServices = Arrays.asList(homebrewPackageService, homebrewCaskPackageService);
         PackageTask.create(packageServices, packageRepository);
         return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
     }

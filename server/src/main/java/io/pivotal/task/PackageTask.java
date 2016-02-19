@@ -1,7 +1,9 @@
 package io.pivotal.task;
 
+import io.pivotal.model.HomebrewCaskPackage;
 import io.pivotal.model.Package;
 import io.pivotal.persistence.PackageRepository;
+import io.pivotal.service.HomebrewCaskPackageService;
 import io.pivotal.service.HomebrewPackageService;
 import io.pivotal.service.PackageService;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -29,26 +31,27 @@ public class PackageTask {
     private HomebrewPackageService homebrewPackageService;
 
     @Autowired
+    private HomebrewCaskPackageService homebrewCaskPackageService;
+
+    @Autowired
     private PackageRepository packageRepository;
 
     @Profile("production-worker")
     @Scheduled(cron = "${resprout.repositories.cron}")
     public void scheduledCreate() throws InterruptedException, GitAPIException, IOException {
-        create(Arrays.asList(homebrewPackageService), packageRepository);
+        create(Arrays.asList(homebrewPackageService, homebrewCaskPackageService), packageRepository);
     }
 
     public static void create(List<? extends PackageService> services, PackageRepository packageRepository) throws InterruptedException, IOException, GitAPIException {
 
         List<Package> packages = new ArrayList<>();
 
-        for (PackageService service :
-                services) {
+        for (PackageService service : services) {
             service.update();
             packages.addAll(service.find());
+            logger.info("{} packages loaded", packages.size());
         }
 
         packageRepository.save(packages);
-
-        logger.info("{} packages loaded", packages.size());
     }
 }

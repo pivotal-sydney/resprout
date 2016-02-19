@@ -39,15 +39,22 @@ public class HomebrewPackageServiceTest {
         formulaPath = localPath.resolve(fileSystem.getPath(HomebrewPackageService.REPOSITORY_NAME, "Library", "Formula"));
 
         Files.createDirectories(formulaPath);
-        createRecipe("carrot_cake.rb", "Stir in the grated carrot.");
     }
 
     @Test
     public void findPackagesTest() throws IOException {
+        createRecipe("carrot_cake.rb", "Stir in the grated carrot.");
         List<Package> packages = homebrewPackageService.find();
         assertThat(packages.size()).isEqualTo(1);
         assertThat(packages.get(0).getName()).isEqualTo("carrot_cake");
         assertThat(packages.get(0).getDescription()).isEqualTo("Stir in the grated carrot.");
+    }
+
+    @Test
+    public void dontFindTest() throws IOException {
+        createRecipe("carrot_cake.yml", "Stir in the grated carrot.");
+        List<Package> packages = homebrewPackageService.find();
+        assertThat(packages.size()).isEqualTo(0);
     }
 
     private void createRecipe(String name, String description) throws IOException {
