@@ -14,7 +14,7 @@ This is a [Spring Boot](http://projects.spring.io/spring-boot/) project.
 ./gradlew build
 ```
 
-### Deployment
+### Deployment - Server
 Be sure to activate the `production` profile for application instances that run in production. If you would like to schedule a task to update metdata periodically, then activate the profile `production-worker` as well. These profiles will allow you to deploy a single application for both tasks and the API, or API applications and worker applications separately.
 
 You may configure the cron expression controlling the task using the environment variable `RESPROUT_REPOSITORIES_CRON` or its equiavalent application properties key (bean).
@@ -31,6 +31,13 @@ SPRING_PROFILES_ACTIVE=production,production-worker ./gradlew bootRun
 SPRING_PROFILES_ACTIVE=production ./gradlew bootRun                     # API Only - route to this instance
 SPRING_PROFILES_ACTIVE=production,production-worker ./gradlew bootRun   # Worker   - do not route to this instance.
 ```
+
+### Deployment - Web Client
+From the `client` folder
+- Run `npm install`
+- Install gulp `npm install -g gulp`
+- Use gulp to build the client `gulp build`
+- To push to CF just use `cf push` from the `client` folder (it already contains manifest.yml)
 
 ### Clients
 
