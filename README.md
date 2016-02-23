@@ -49,9 +49,9 @@ Build your own client - and interact with it.
 
 | Status | Source | Description |
 |---|---|---|
-| In Progress | [Homebrew](http://brew.sh/) | The missing package manager for OS X |
-| Not Done | [Homebrew Cask](http://caskroom.io/) | Binary install plugin for homebrew |
-| Not Done | [Chef Supermarket](https://supermarket.chef.io/) | Chef cookbooks for all of your ops needs |
+| Done        | [Homebrew](http://brew.sh/) | The missing package manager for OS X |
+| Done        | [Homebrew Cask](http://caskroom.io/) | Binary install plugin for homebrew |
+| In Progress | [Chef Supermarket](https://supermarket.chef.io/) | Chef cookbooks for all of your ops needs |
 
 ### Sprout
 
