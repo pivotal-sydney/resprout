@@ -5,6 +5,7 @@ test:
   override:
     - ./gradlew test
 dependencies:
+  pre:
     - 'curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx'
 
 deployment:
