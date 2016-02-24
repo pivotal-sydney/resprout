@@ -1,4 +1,9 @@
- Resprout
+Resprout
+ 
+
+![Circle CI Badge](https://circleci.com/gh/pivotal-sydney/resprout.svg?style=shield&circle-token=75c0d9a89bd59fd0950d53f2148220cddc76b191)
+
+
 
 Provisioning workstations can be a pain, this HTTP API will expose metadata for the various recipes and packages that can be used to provision a machine so that a `soloistrc` file can be generated through user selection.
 

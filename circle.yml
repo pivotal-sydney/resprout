@@ -1,0 +1,20 @@
+machine:
+  java:
+    version: oraclejdk8
+test:
+  override:
+    - ./gradlew test
+dependencies:
+    - 'curl -L "https://cli.run.pivotal.io/stable?release=linux64-binary&source=github" | tar -zx'
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - './gradlew build'
+      - './cf login -u $CF_USERNAME -p $CF_PASSWORD -a "https://api.run.pivotal.io" -o  mik -s development'
+      - './cf push resprout -p ./server/build/libs/resprout-0.0.1-SNAPSHOT.jar'
+
+notify:
+  webhooks:
+    - url: http://pulse.pivotallabs.com/projects/39b6b80c-e951-4c7c-a860-44a14407ff7b/status
